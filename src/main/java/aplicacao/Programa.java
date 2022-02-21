@@ -12,10 +12,12 @@ public class Programa {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo-jpa");
 		EntityManager em = emf.createEntityManager();
 		
-		//find é uma função que busca um objeto pelo id
-		Pessoa p = em.find(Pessoa.class, 2);
+		Pessoa p = em.find(Pessoa.class,2);
 		
-		System.out.println(p);
+		// é necessario utilizar o getTransaction e o commit para utilizar o remove
+		em.getTransaction().begin();
+		em.remove(p);
+		em.getTransaction().commit();
 		System.out.println("Pronto!");
 		
 		em.close();
